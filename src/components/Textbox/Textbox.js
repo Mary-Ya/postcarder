@@ -1,13 +1,14 @@
 import React from 'react';
-import { DEFAULT_TEXT } from '../../config';
 
-class Textbox extends React.Component {
+/**
+ * Component process and represent string as a square
+ * @param {string} stringInput - The string to represent
+ * @example <TextBox stringInput={yourString} />
+ */
+
+class TextBox extends React.Component {
     static propTypes = {
         stringInput: React.PropTypes.string.isRequired
-    };
-
-    static defaultProps = {
-        stringInput: DEFAULT_TEXT
     };
 
     constructor(props) {
@@ -16,27 +17,50 @@ class Textbox extends React.Component {
     }
 
     renderSingleString(str, i) {
+        /**
+         * Component represent value as a string in <div>
+         * @param {string} str - the string to represent
+         * @param {number} i - index to set as a key
+         * @return {html} formatted string
+         */
+
         return(<div className='textbox__inner' key={'str' + i}>{str}</div>)
     }
 
-    getStringLength(srcLength) {
+    getSquareSide (srcLength) {
+        /**
+         * Get length of the square side
+         * @param {number} srcLength - length of income the string
+         * @return {number} square side length
+         */
+
         const length = Math.ceil(Math.sqrt(srcLength));
         return length < 1 ? 1 : length;
     }
 
     fillLastString(list, stringLength) {
+        /**
+         * Check and fill last string with '.' if it's uncompleted
+         * @param {array} list - current list
+         * @return {number} stringLength - current list length
+         */
+
         const lastElementIndex = list.length - 1;
         const lastElementLength = list[lastElementIndex].length;
 
         if (lastElementLength !== stringLength) {
-            const ellipses = '.'.repeat(stringLength - lastElementLength);
-            list[lastElementIndex] += ellipses;
+            list[lastElementIndex] += '.'.repeat(stringLength - lastElementLength);
         }
 
         return list;
     }
 
     fillMissingLines(list, stringLength) {
+        /**
+         * Check and fill rest of the array with '.'-strings if it's uncompleted
+         * @param {array} list - current list
+         * @return {number} stringLength - current list length
+         */
         const listLength = list.length;
 
         if (listLength !== stringLength) {
@@ -50,8 +74,14 @@ class Textbox extends React.Component {
     }
 
     getStringList(src) {
+        /**
+         * Convert string to square array of strings
+         * @param {string} src - string to convert
+         * @return {array} square array of strings o r empty array
+         */
+
         if (src.length > 0) {
-            const stringLength = this.getStringLength(src.length);
+            const stringLength = this.getSquareSide (src.length);
             let list = src.match(new RegExp('.{1,' + stringLength + '}', 'g')) || [];
             list = this.fillLastString(list, stringLength);
             list = this.fillMissingLines(list, stringLength);
@@ -63,6 +93,8 @@ class Textbox extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+         // If string is new - set it to state
+
         if(nextProps !== this.state.text)
         this.setState({text: this.getStringList(nextProps.stringInput)});
     }
@@ -74,4 +106,4 @@ class Textbox extends React.Component {
     }
 }
 
-export default Textbox;
+export default TextBox;

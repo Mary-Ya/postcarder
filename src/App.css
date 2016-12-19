@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-}
-
 .App-header {
   background-color: #222;
   padding: 30px;
@@ -17,18 +13,13 @@
   margin-top: 0;
 }
 
-.App-intro {
-  font-size: large;
-}
-
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 .textbox {
-  padding: 20px;
-  padding-right: 6px;
+  padding: 20px 6px 20px 20px;
   font-family: monospace;
   letter-spacing: 14px;
   font-size: 16px;
@@ -36,6 +27,7 @@
   display: inline-block;
   text-align: left;
   width: auto;
+  min-width: 1em;
   max-width: 90%;
 }
 

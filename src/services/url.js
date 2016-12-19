@@ -1,16 +1,28 @@
-export default {
-    getParams:() => {
-        let params = '';
-        try {
-            params = window.location.search.substring(1);
-            return decodeURIComponent(params);
-        } catch (e) {
+function getQuery () {
+    /**
+     * Get search query from URL
+     * @return {string || null} - search query string or null
+     */
 
-            // if url param is invalid
-            return null;
-        }
-    },
-    setParams: (params) => {
-        history.pushState({}, '', params || '');
+    let query = '';
+    try {
+        query = window.location.search.substring(1);
+        return decodeURIComponent(query);
+    } catch (e) {
+
+        // if url param is invalid
+        return null;
+    }
+}
+
+export default {
+    getQuery,
+    setQuery: (query) => {
+        /**
+         * Set query to URL search query
+         * @param {string} - search query
+         */
+
+        history.pushState({}, '', '?' + query);
     }
 }

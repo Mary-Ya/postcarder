@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import url from './services/url';
 
 import Textbox from './components/Textbox/Textbox';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const App = React.createClass({
+  getInitialState() {
     const params = url.getParams();
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {stringInput: params};
-  }
+    return {stringInput: params};
+  },
 
   handleChange(e) {
+    url.setParams(e.target.value);
     this.setState({stringInput: e.target.value});
-  }
+  },
 
   render() {
     return (
@@ -27,6 +26,6 @@ class App extends Component {
       </div>
     );
   }
-}
+});
 
 export default App;

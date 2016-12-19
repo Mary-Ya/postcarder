@@ -1,5 +1,5 @@
 export default {
-    getParams: () => {
+    getParams:() => {
         let params = '';
         try {
             params = window.location.search.substring(1);
@@ -7,8 +7,10 @@ export default {
         } catch (e) {
 
             // if url param is invalid
-            return '';
+            return null;
         }
-
+    },
+    setParams: (params) => {
+        history.pushState({}, '', params || '');
     }
 }
